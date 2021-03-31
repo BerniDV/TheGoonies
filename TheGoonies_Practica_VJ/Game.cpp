@@ -44,6 +44,7 @@ bool Game::update(int deltaTime)
 	if (bWin)
 	{
 
+		SoundPlayer::instance().stopAllSongs();
 		Menu::instance().openMenuFunc();
 
 		bWin = false;
@@ -211,6 +212,7 @@ void Game::setFriendsSafed(int amount)
 void Game::addFriendSafed()
 {
 	++friendsSafed;
+	SoundPlayer::instance().play2DSong("friendSaved", false);
 }
 
 void Game::setbWin(bool bWin)

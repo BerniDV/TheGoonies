@@ -17,6 +17,12 @@ enum PlayerAnims
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB, HIT_LEFT, HIT_RIGHT
 };
 
+enum PlayerStat
+{
+
+	NORMAL, DAMAGED, DEADD
+};
+
 
 void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
@@ -30,6 +36,8 @@ void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	bClimbing = false;
 	bJumping = false;
 
+	estado = NORMAL;
+	
 	spritesheet.loadFromFile("images/player.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.5, 1.f / 6.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(9);
@@ -279,6 +287,8 @@ void Player::update(int deltaTime)
 	{
 		Game::instance().setBLose(true);
 		Game::instance().setNeedToRestart(true);
+		SoundPlayer::instance().stopAllSongs();
+		SoundPlayer::instance().play2DSong("die", false);
 	}
 
 	if (timeHitting == 10)
@@ -373,10 +383,26 @@ float Player::getExperiencie()
 
 bool Player::enemyContact(glm::fvec2 enemyPos)
 {
-	if ((enemyPos.y == posPlayer.y && sprite->animation() == HIT_RIGHT && enemyPos.x < (posPlayer.x + 1.15 * map->getTileSize() && enemyPos.x >= (posPlayer.x))) || (enemyPos.y == posPlayer.y && sprite->animation() == HIT_LEFT && enemyPos.x > (posPlayer.x - 1.15 * map->getTileSize()) && enemyPos.x <= (posPlayer.x)))
+	if (enemyPos.y == posPlayer.y)
 	{
-		return true;
+
+		if (sprite->animation() == HIT_LEFT)
+		{
+			float voulnerablePosition = 1.15 * map->getTileSize();
+			if(enemyPos.x > (posPlayer.x - voulnerablePosition) && enemyPos.x <= (posPlayer.x))
+
+				return true;
+		}
+
+		if (sprite->animation() == HIT_RIGHT)
+		{
+			float voulnerablePosition = 1.15 * map->getTileSize();
+			if(enemyPos.x < (posPlayer.x + voulnerablePosition) && enemyPos.x >= (posPlayer.x))
+
+				return true;
+		}
 	}
+	
 
 	return false;
 }
@@ -389,7 +415,7 @@ void Player::punchIfPossible(Enemigo& enemy, float amount)
 		{
 			experience += 25.f;
 			HUD::instance().updateExperience(experience);
-			SoundPlayer::instance().play2DSong("sounds/punch.wav", false);
+			SoundPlayer::instance().play2DSong("punch", false);
 		}
 		enemy.addHealth(-amount);
 	}

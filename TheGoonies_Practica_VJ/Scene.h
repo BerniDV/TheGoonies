@@ -36,6 +36,8 @@ public:
 	void reloadMap();
 	void restart();
 
+	void setNumScene(int numEscene);
+
 private:
 	void initShaders();
 
@@ -46,6 +48,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	int pantalla;
+	int numScene;
 
 
 };

@@ -54,6 +54,8 @@ protected:
 	int timeHitting;
 	int delayToHitAgain;
 
+	int estado;
+
 };
 
 

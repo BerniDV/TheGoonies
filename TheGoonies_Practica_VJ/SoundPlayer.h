@@ -19,9 +19,14 @@ public:
 
 	void init();
 	void play2DSong(const char* path, bool loop);
+	void stopAllSongs();
 
 private:
 
 	ISoundEngine* soundEngine;
+	ISoundSource* MainTheme;
+	ISoundSource* punch;
+	ISoundSource* die;
+	ISoundSource* friendSaved;
 };
 

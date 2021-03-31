@@ -14,9 +14,14 @@ public:
 
 	void restart();
 
+	void addToCurrentScene(int numScene);
+	void setToCurrentScene(int numScene);
+	int getCurrentScene();
+
 private:
 	//Deberà ser un vector con un mínimo de 3 escenas
-	Scene* scene;
+	Scene* scene[5];
+	int currentScene;
 
 };
 
