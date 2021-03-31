@@ -38,6 +38,8 @@ public:
 
 	void setNumScene(int numEscene);
 
+	void calculateCorrectPantalla();
+
 private:
 	void initShaders();
 

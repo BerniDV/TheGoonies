@@ -91,41 +91,7 @@ void Scene::update(int deltaTime)
 	HUD::instance().updateHealth(player->getHealth());
 	HUD::instance().updateExperience(player->getExperiencie());
 
-
-	//Si el jugador se pone en esa posicion bWin se pone a true y se activa el mecanismo de partida ganada, por detras se
-	//pone al jugador en la posicion del principio
-	if (player->getPosPlayer().x == (34 * maps[pantalla]->getTileSize()))
-	{
-		if (pantalla < maps.size() - 1)
-		{
-			++pantalla;
-		}
-		//Game::instance().setbWin(true);
-		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(0, player->getPosPlayer().y));
-
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
-
-	}
-	else if (player->getPosPlayer().x == (0 * maps[pantalla]->getTileSize()))
-	{
-		if (pantalla > numPantalla::primer)
-		{
-			--pantalla;
-		}
-
-		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(34 * maps[pantalla]->getTileSize(), player->getPosPlayer().y));
-
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
-
-	}
+	calculateCorrectPantalla();
 
 	vector<Enemigo*> enemys = maps[pantalla]->getEnemys();
 
@@ -222,6 +188,78 @@ void Scene::setNumScene(int numEscene)
 {
 
 	numScene = numEscene;
+}
+
+void Scene::calculateCorrectPantalla()
+{
+
+	
+	if (player->getPosPlayer().x >= (34 * maps[pantalla]->getTileSize()))
+	{
+		if (pantalla < maps.size() - 1)
+		{
+			++pantalla;
+		}
+		//Game::instance().setbWin(true);
+		glm::ivec2 pos = player->getPosPlayer();
+		player->setPosition(glm::vec2(0, player->getPosPlayer().y));
+
+		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
+		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
+		//asi a la par de ahorrar render doy sensacion de permanencia.
+		player->setTileMap(maps[pantalla]);
+
+	}
+	else if (player->getPosPlayer().x == (0 * maps[pantalla]->getTileSize()))
+	{
+		if (pantalla > numPantalla::primer)
+		{
+			--pantalla;
+		}
+
+		glm::ivec2 pos = player->getPosPlayer();
+		player->setPosition(glm::vec2(34 * maps[pantalla]->getTileSize(), player->getPosPlayer().y));
+
+		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
+		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
+		//asi a la par de ahorrar render doy sensacion de permanencia.
+		player->setTileMap(maps[pantalla]);
+
+	}else if (player->getPosPlayer().y == (0 * maps[pantalla]->getTileSize()))
+	{
+
+		if (pantalla > numPantalla::primer)
+		{
+			--pantalla;
+		}
+
+		glm::ivec2 pos = player->getPosPlayer();
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 26 * maps[pantalla]->getTileSize()));
+
+		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
+		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
+		//asi a la par de ahorrar render doy sensacion de permanencia.
+		player->setTileMap(maps[pantalla]);
+		
+		
+	}else if (player->getPosPlayer().y >= (26 * maps[pantalla]->getTileSize()))
+	{
+
+		if (pantalla < maps.size() - 1)
+		{
+			++pantalla;
+		}
+		//Game::instance().setbWin(true);
+		glm::ivec2 pos = player->getPosPlayer();
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 0));
+
+		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
+		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
+		//asi a la par de ahorrar render doy sensacion de permanencia.
+		player->setTileMap(maps[pantalla]);
+		
+	}
+	
 }
 
 

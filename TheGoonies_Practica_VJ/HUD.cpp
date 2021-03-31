@@ -21,7 +21,8 @@ void HUD::buildHUD()
 
 	TxtManager[0] = TextManager::CreateTextManager(texProgram, "HEALTH", glm::vec2((SCREEN_WIDTH - 850.f) * 0.5f, -500.f));
 	TxtManager[1] = TextManager::CreateTextManager(texProgram, "EXPERIENCE", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f, -500.f));
-	TxtManager[2] = TextManager::CreateTextManager(texProgram, "FRIENDS", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f + 70, 1440.f));
+	TxtManager[2] = TextManager::CreateTextManager(texProgram, "FRIENDS", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f, -500.f));
+	position = { glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f + 70, 1440.f) };
 
 	health = Quad::createQuad(0, 0, healthAmount * 4.f, 50.f, texProgram);
 	experience = Quad::createQuad(0, 0, experienceAmount * 4.f, 50.f, texProgram);
@@ -64,11 +65,6 @@ void HUD::render()
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
-
-	//dibujo los rectangulos que representan los amigos
-
-	renderFriends();
-
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	//Declarar modelview para mover el cuadrado con la textura por el mapa
 
@@ -107,12 +103,25 @@ void HUD::render()
 
 	experience->render();
 
+	//dibujo los rectangulos que representan los amigos
+
+	renderFriends();
+
 }
 
 void HUD::renderFriends()
 {
 
+	
 	texProgram.setUniform4f("color", 1.f, 1.0f, 1.0f, 1.0f);
+	modelview = glm::mat4(1.0f);
+	modelview = glm::translate(modelview, glm::vec3(25.f, 430.f, 0.f));
+	modelview = glm::translate(modelview, glm::vec3((SCREEN_WIDTH - 200.f) * 0.5f, SCREEN_HEIGHT * 0.5f, 0.f));
+	modelview = glm::scale(modelview, glm::vec3(0.3f, 0.3f, 1.f));
+	modelview = glm::translate(modelview, glm::vec3(-(SCREEN_WIDTH - 200.f) * 0.5f, -SCREEN_HEIGHT * 0.5f, 0.f));
+
+
+	texProgram.setUniformMatrix4f("modelview", modelview);
 	TxtManager[2]->print();
 
 	int friendsSafed = Game::instance().getFriendsSafed();
@@ -188,5 +197,6 @@ void HUD::renderFriends()
 	modelview = glm::translate(modelview, glm::vec3(-(SCREEN_WIDTH - 200.f) * 0.5f, -SCREEN_HEIGHT * 0.5f, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	friends->render();
+
 }
 

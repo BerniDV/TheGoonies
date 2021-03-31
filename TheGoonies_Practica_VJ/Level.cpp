@@ -8,7 +8,7 @@ Level::Level()
 		scene[i] = Scene::createScene();
 	}
 
-	currentScene = 0;
+	currentScene = 1;
 }
 
 void Level::restart()

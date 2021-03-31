@@ -40,5 +40,6 @@ private:
 	Quad* experience;
 	Quad* friends;
 
+	glm::fvec2 position;
 };
 

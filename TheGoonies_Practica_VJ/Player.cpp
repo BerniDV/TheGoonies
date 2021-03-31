@@ -8,7 +8,7 @@
 
 
 #define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 96
+#define JUMP_HEIGHT 70
 #define FALL_STEP 4
 
 
@@ -35,6 +35,7 @@ void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	bhitting = false;
 	bClimbing = false;
 	bJumping = false;
+	bCanClimb = false;
 
 	estado = NORMAL;
 	
@@ -166,11 +167,34 @@ void Player::update(int deltaTime)
 	{
 		sprite->changeAnimation(CLIMB);
 	}
-	if (!bClimbing && sprite->animation() == CLIMB)
+	
+	if (sprite->animation() == CLIMB && !bCanClimb)
 	{
+		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+		{
+			sprite->changeAnimation(JUMP_LEFT);
+		}else if(GLUT_KEY_RIGHT)
+		{
 
+			sprite->changeAnimation(JUMP_RIGHT);
+		}
+
+		bClimbing = false;
+		
+	}
+	
+	float aux;
+	glm::fvec2 posPlayerForChangeAnimationClimbUp(posPlayer.x, posPlayer.y - (.5f * map->getTileSize()));
+	if (!map->canClimbUp(posPlayerForChangeAnimationClimbUp, glm::ivec2(32, 32), &posPlayer.y, aux) && sprite->animation() == CLIMB)
+	{
 		sprite->changeAnimation(STAND_LEFT);
 	}
+
+	if (((sprite->animation() == JUMP_RIGHT || sprite->animation() == JUMP_LEFT)))
+	{
+		bCanClimb = false;
+	}
+	
 
 	if (bhitting)
 	{
@@ -206,7 +230,7 @@ void Player::update(int deltaTime)
 		}
 		else
 		{
-			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+			posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 			if (jumpAngle > 90)
 				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y);
 		}
@@ -218,12 +242,15 @@ void Player::update(int deltaTime)
 	}
 	else
 	{
+		
 		float positionClimb;
 		if (map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, positionClimb) && Game::instance().getSpecialKey(GLUT_KEY_UP))
 		{
 			//En este caso no puede saltar pero si puede escalar(andar verticalmente)
 			bJumping = false;
 			bClimbing = true;
+			bCanClimb = true;
+			
 			if (positionClimb != 0)
 			{
 				posPlayer.x = positionClimb * map->getTileSize();
@@ -238,6 +265,8 @@ void Player::update(int deltaTime)
 
 			bJumping = false;
 			bClimbing = true;
+			bCanClimb = true;
+			
 			if (positionClimb != 0)
 			{
 				posPlayer.x = positionClimb * map->getTileSize();
@@ -249,14 +278,16 @@ void Player::update(int deltaTime)
 		else
 		{
 			float positionClimb;
-			if (!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, positionClimb))
+			if (!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, positionClimb) || !bCanClimb)
 			{
 				posPlayer.y += FALL_STEP;
+				
 			}
 
 			if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y))
 			{
 				bClimbing = false;
+				bCanClimb = true;
 
 				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 				{
@@ -279,6 +310,16 @@ void Player::update(int deltaTime)
 			}
 
 		}
+	}
+
+	
+
+	if (!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, aux) && !map->canClimbDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y, aux))
+	{
+		bCanClimb = false;
+	}else
+	{
+		bCanClimb = true;
 	}
 
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));

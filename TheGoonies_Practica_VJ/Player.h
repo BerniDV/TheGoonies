@@ -41,6 +41,7 @@ protected:
 	bool bCanHit;
 	bool bJumping;
 	bool bClimbing;
+	bool bCanClimb;
 	glm::ivec2 tileMapDispl;
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
