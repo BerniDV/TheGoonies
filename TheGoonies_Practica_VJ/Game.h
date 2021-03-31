@@ -54,6 +54,10 @@ public:
 	void setFriendsSafed(int amount);
 	void addFriendSafed();
 
+	void goNextScene();
+	void goPreviousScene();
+	void goToScene(int scene);
+
 private:
 	bool bPlay;                       // Continue to play game?
 	Level level;                      // Scene to render

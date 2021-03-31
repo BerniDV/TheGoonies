@@ -215,6 +215,22 @@ void Game::addFriendSafed()
 	SoundPlayer::instance().play2DSong("friendSaved", false);
 }
 
+void Game::goNextScene()
+{
+
+	level.addToCurrentScene(1);
+}
+
+void Game::goPreviousScene()
+{
+	level.addToCurrentScene(-1);
+}
+
+void Game::goToScene(int scene)
+{
+	level.setToCurrentScene(scene);
+}
+
 void Game::setbWin(bool bWin)
 {
 	this->bWin = bWin;

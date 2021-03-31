@@ -35,6 +35,7 @@ public:
 	bool enemyContact(glm::fvec2 enemyPos);
 	void punchIfPossible(Enemigo& enemy, float amount);
 
+
 protected:
 
 	bool bhitting;

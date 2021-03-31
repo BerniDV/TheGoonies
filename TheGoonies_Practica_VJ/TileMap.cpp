@@ -188,7 +188,7 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 				enemys[LastEnemy]->setTileMap(this);
 				map[j * mapSize.x + i] = 0;
 
-			}
+			}//representa la b
 			else if (tile == 50) {
 
 				enemys.push_back(new EnemigoComplejo);
@@ -204,10 +204,15 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 
 				amigo = new Friend;
 				amigo->init(glm::ivec2(32, 16), program);
-				amigo->setPosition(glm::vec2(i + 5 * getTileSize(), (j - 1) * getTileSize()));
+				amigo->setPosition(glm::vec2((i * getTileSize())-10, (j-1) * getTileSize()));
 				amigo->setTileMap(this);
 				map[j * mapSize.x + i] = 0;
 
+			}else if (tile == 64) //representa la p
+			{
+
+				//aqui poner un portal
+				
 			}
 			else
 				if (tile != 0)
