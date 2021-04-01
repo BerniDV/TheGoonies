@@ -36,6 +36,7 @@ void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	bClimbing = false;
 	bJumping = false;
 	bCanClimb = false;
+	bCanJump = true;
 
 	estado = NORMAL;
 	
@@ -91,6 +92,12 @@ void Player::update(int deltaTime)
 
 		bhitting = true;
 		bCanHit = false;
+	}
+
+	if (!bClimbing)
+	{
+		bCanJump = true;
+		bCanFall = true;
 	}
 
 
@@ -270,6 +277,7 @@ void Player::update(int deltaTime)
 			bJumping = false;
 			bClimbing = true;
 			bCanClimb = true;
+			bCanFall = true;
 			
 			if (positionClimb != 0)
 			{
@@ -282,7 +290,7 @@ void Player::update(int deltaTime)
 		else
 		{
 			float positionClimb;
-			if (!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, positionClimb) || !bCanClimb)
+			if ((!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, positionClimb) || !bCanClimb) && bCanFall)
 			{
 				posPlayer.y += FALL_STEP;
 				
@@ -293,7 +301,7 @@ void Player::update(int deltaTime)
 				
 				bCanClimb = true;
 
-				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
+				if (Game::instance().getSpecialKey(GLUT_KEY_UP) && bCanJump)
 				{
 
 					bJumping = true;
@@ -392,6 +400,26 @@ void Player::setPosition(const glm::vec2& pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+}
+
+bool Player::getBClimbing()
+{
+	return bClimbing;
+}
+
+bool Player::getbCanJump()
+{
+	return bCanJump;
+}
+
+void Player::setbCanJump(bool value)
+{
+	bCanJump = value;
+}
+
+void Player::setbCanFall(bool value)
+{
+	bCanFall = value;
 }
 
 glm::ivec2 Player::getPosPlayer()

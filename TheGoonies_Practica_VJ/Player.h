@@ -23,6 +23,13 @@ public:
 	void setTileMap(TileMap* tileMap);
 	void setPosition(const glm::vec2& pos);
 
+	bool getBClimbing();
+
+	bool getbCanJump();
+	void setbCanJump(bool value);
+
+	void setbCanFall(bool value);
+
 	glm::ivec2 getPosPlayer();
 	TileMap* getMap();
 
@@ -41,8 +48,10 @@ protected:
 	bool bhitting;
 	bool bCanHit;
 	bool bJumping;
+	bool bCanJump;
 	bool bClimbing;
 	bool bCanClimb;
+	bool bCanFall;
 	glm::ivec2 tileMapDispl;
 	glm::fvec2 posPlayer;
 	int jumpAngle, startY;
