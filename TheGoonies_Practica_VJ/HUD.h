@@ -24,6 +24,8 @@ public:
 	void render();
 	void renderFriends();
 
+	void update(float deltaTime);
+
 private:
 
 	TextManager* TxtManager[3];
@@ -41,5 +43,7 @@ private:
 	Quad* friends;
 
 	glm::fvec2 position;
+
+	
 };
 

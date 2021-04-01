@@ -24,6 +24,10 @@ public:
 	void setposPlayer(glm::fvec2 posPlayer);
 	void teleport(glm::fvec2& posPlayer);
 	bool playerContact();
+	glm::fvec2 getPosPortal();
+	glm::fvec2 getPosPlayerAfterTeleport();
+
+	TypePortal getType();
 	
 	void render();
 

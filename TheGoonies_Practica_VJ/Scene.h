@@ -26,15 +26,18 @@ class Scene
 
 public:
 
-	static Scene* createScene();
-	Scene();
+	static Scene* createScene(Player& player);
+	Scene(Player& player);
 	~Scene();
 
-	void init();
+	void init(ShaderProgram& texProgram);
 	void update(int deltaTime);
 	void render();
 	void reloadMap();
 	void restart();
+
+	vector<TileMap*> getMaps();
+	int getCurrentPantalla();
 
 	void setNumScene(int numEscene);
 

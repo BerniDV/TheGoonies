@@ -10,6 +10,7 @@ public:
 	static Level* createLevel();
 	void init();
 	void update(float deltaTime);
+	void initShaders();
 	void render();
 
 	void restart();
@@ -22,6 +23,10 @@ private:
 	//Deberà ser un vector con un mínimo de 3 escenas
 	Scene* scene[5];
 	int currentScene;
+	ShaderProgram texProgram;
+
+	glm::mat4 projection;
+	Player* player;
 
 };
 

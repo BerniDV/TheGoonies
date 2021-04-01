@@ -22,6 +22,9 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
+
+	HUD::instance().update(deltaTime);
+	
 	//esta misma accion hay que hacerla solo cuando entramos en contacto con un amigo en escena
 	//asi no habrà que comprovarlo cada frame
 	if (friendsSafed == 6)

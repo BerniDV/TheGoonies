@@ -200,3 +200,10 @@ void HUD::renderFriends()
 
 }
 
+void HUD::update(float deltaTime)
+{
+
+	updateHealth(healthAmount);
+	updateExperience(experienceAmount);
+}
+

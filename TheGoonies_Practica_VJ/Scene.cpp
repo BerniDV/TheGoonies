@@ -14,20 +14,20 @@
 #define INIT_PLAYER_Y_TILES 10
 
 
-Scene* Scene::createScene()
+Scene* Scene::createScene(Player& player)
 {
-	return new Scene();
+	return new Scene(player);
 }
 
-Scene::Scene()
-{
+Scene::Scene(Player &player)
+{	
 
 	for (auto m : maps)
 	{
 		m = NULL;
 	}
-	player = NULL;
-
+	
+	this->player = &player;
 }
 
 Scene::~Scene()
@@ -43,12 +43,13 @@ Scene::~Scene()
 }
 
 
-void Scene::init()
+void Scene::init(ShaderProgram& texProgram)
 {
 
 	pantalla = numPantalla::primer;
-	initShaders();
-
+	//initShaders();
+	this->texProgram = texProgram;
+	
 	//el 3 se debe a que 6-1 = 5 que son los mapas que ahora mismo tenemos en la carpeta
 	for (int i = 1; i < 4; i++)
 	{
@@ -56,8 +57,8 @@ void Scene::init()
 		maps.push_back(TileMap::createTileMap(pathMap, glm::vec2(SCREEN_X, SCREEN_Y), texProgram));
 	}
 
-	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	//player = new Player();
+	//player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * maps[0]->getTileSize(), INIT_PLAYER_Y_TILES * maps[0]->getTileSize()));
 	player->setTileMap(maps[0]);
 
@@ -84,6 +85,8 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+
+	player->setTileMap(maps[pantalla]);
 
 	maps[pantalla]->setPosPlayer(player->getPosPlayer());
 	maps[pantalla]->update(deltaTime);
@@ -123,23 +126,7 @@ void Scene::update(int deltaTime)
 	}
 	
 
-	vector<portal*> portals = maps[pantalla]->getPortals();
 	
-	for (auto p : portals)
-	{
-
-		if (p != NULL) {
-
-			p->setposPlayer(player->getPosPlayer());
-			
-			if (p->playerContact()){
-			
-
-				p->setposPlayer(player->getPosPlayer());
-			}
-
-		}
-	}
 
 }
 
@@ -203,6 +190,17 @@ void Scene::restart()
 
 }
 
+vector<TileMap*> Scene::getMaps()
+{
+
+	return maps;
+}
+
+int Scene::getCurrentPantalla()
+{
+	return pantalla;
+}
+
 void Scene::setNumScene(int numEscene)
 {
 
@@ -223,10 +221,7 @@ void Scene::calculateCorrectPantalla()
 		glm::ivec2 pos = player->getPosPlayer();
 		player->setPosition(glm::vec2(0, player->getPosPlayer().y));
 
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
+		
 
 	}
 	else if (player->getPosPlayer().x <= (0 * maps[pantalla]->getTileSize()))
@@ -239,12 +234,10 @@ void Scene::calculateCorrectPantalla()
 		glm::ivec2 pos = player->getPosPlayer();
 		player->setPosition(glm::vec2(34 * maps[pantalla]->getTileSize(), player->getPosPlayer().y));
 
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
+		
+		
 
-	}else if (player->getPosPlayer().y <= (0 * maps[pantalla]->getTileSize()))
+	}else if (player->getPosPlayer().y <= (1 * maps[pantalla]->getTileSize()))
 	{
 
 		if (pantalla > numPantalla::primer)
@@ -253,12 +246,10 @@ void Scene::calculateCorrectPantalla()
 		}
 
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(player->getPosPlayer().x, 26 * maps[pantalla]->getTileSize()));
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 25 * maps[pantalla]->getTileSize()));
 
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
+		
+		
 		
 		
 	}else if (player->getPosPlayer().y >= (26 * maps[pantalla]->getTileSize()))
@@ -270,12 +261,10 @@ void Scene::calculateCorrectPantalla()
 		}
 		//Game::instance().setbWin(true);
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(player->getPosPlayer().x, 0));
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 2* maps[pantalla]->getTileSize()));
 
-		//voy a tener un vector de mapas que segun posicion se intercanvien para dar la sensacion de continuidad
-		//no es necessario limpiarlpos de memoria ya que necessito guardar el estado anterior en el que los dejo el jugador
-		//asi a la par de ahorrar render doy sensacion de permanencia.
-		player->setTileMap(maps[pantalla]);
+		
+		
 		
 	}
 	

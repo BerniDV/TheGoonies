@@ -149,8 +149,12 @@ void Player::update(int deltaTime)
 
 	if ((sprite->animation() == MOVE_LEFT || sprite->animation() == STAND_LEFT) && Game::instance().getSpecialKey(GLUT_KEY_UP) && sprite->animation() != CLIMB)
 	{
-
-		sprite->changeAnimation(JUMP_LEFT);
+		float aux;
+		if (!map->canClimbUp(posPlayer, glm::ivec2(32, 32), &posPlayer.y, aux))
+		{
+			sprite->changeAnimation(JUMP_LEFT);
+		}
+		
 	}
 	else if ((sprite->animation() == MOVE_RIGHT || sprite->animation() == STAND_RIGHT) && Game::instance().getSpecialKey(GLUT_KEY_UP) && sprite->animation() != CLIMB)
 	{
@@ -286,7 +290,7 @@ void Player::update(int deltaTime)
 
 			if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y))
 			{
-				bClimbing = false;
+				
 				bCanClimb = true;
 
 				if (Game::instance().getSpecialKey(GLUT_KEY_UP))

@@ -49,7 +49,7 @@ void portal::teleport(glm::fvec2& posPlayer)
 	{
 
 		Game::instance().goPreviousScene();
-	}else
+	}else if(tipoPortal == Posterior)
 	{
 
 		Game::instance().goNextScene();
@@ -81,6 +81,23 @@ bool portal::playerContact()
 
 
 	return puedeColisionar && collisioning;
+}
+
+glm::fvec2 portal::getPosPortal()
+{
+
+	return posPortal;
+}
+
+glm::fvec2 portal::getPosPlayerAfterTeleport()
+{
+	return posPlayerAfterTeleport;
+}
+
+TypePortal portal::getType()
+{
+
+	return tipoPortal;
 }
 
 
