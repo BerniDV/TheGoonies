@@ -121,6 +121,25 @@ void Scene::update(int deltaTime)
 			amigo->setPuedeColisionar(false);
 		}
 	}
+	
+
+	vector<portal*> portals = maps[pantalla]->getPortals();
+	
+	for (auto p : portals)
+	{
+
+		if (p != NULL) {
+
+			p->setposPlayer(player->getPosPlayer());
+			
+			if (p->playerContact()){
+			
+
+				p->setposPlayer(player->getPosPlayer());
+			}
+
+		}
+	}
 
 }
 

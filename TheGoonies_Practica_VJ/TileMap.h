@@ -7,6 +7,7 @@
 
 
 #include "Friend.h"
+#include "portal.h"
 #include "Texture.h"
 #include "ShaderProgram.h"
 class Enemigo;
@@ -44,6 +45,7 @@ public:
 
 
 	vector<Enemigo*> getEnemys();
+	vector<portal*> getPortals();
 
 
 	Friend* getAmigo();
@@ -64,6 +66,7 @@ private:
 	glm::vec2 tileTexSize;
 	int* map;
 	vector<Enemigo*> enemys;
+	vector<portal*> portals;
 
 	Friend* amigo;
 };

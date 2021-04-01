@@ -61,6 +61,15 @@ void TileMap::render() const
 		amigo->render();
 	}
 
+	for (auto p : portals)
+	{
+		if (p != NULL)
+		{
+
+			p->render();
+		}
+	}
+
 }
 
 void TileMap::update(float deltaTime)
@@ -84,6 +93,16 @@ void TileMap::update(float deltaTime)
 
 		}
 
+	}
+
+	
+	for (auto p : portals)
+	{
+		if (p != NULL)
+		{
+
+			p->update(deltaTime);
+		}
 	}
 
 	if (amigo != NULL)
@@ -208,10 +227,27 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 				amigo->setTileMap(this);
 				map[j * mapSize.x + i] = 0;
 
+			}else if (tile == 63) //representa la o
+			{
+
+				//aqui poner un portal de vuelta
+				glm::vec2 position((i * getTileSize()) - 10, (j - 5) * getTileSize());
+
+				portals.push_back(new portal);
+				int LastPortal = portals.size() - 1;
+				portals[LastPortal]->init(Previous, position, glm::ivec2(32, 16), program);
+				map[j * mapSize.x + i] = 0;
+				
 			}else if (tile == 64) //representa la p
 			{
 
-				//aqui poner un portal
+				//aqui poner un portal de ida
+				glm::vec2 position((i * getTileSize()) - 10, (j - 5) * getTileSize());
+
+				portals.push_back(new portal);
+				int LastPortal = portals.size() - 1;
+				portals[LastPortal]->init(Posterior, position, glm::ivec2(32, 16), program);
+				map[j * mapSize.x + i] = 0;
 				
 			}
 			else
@@ -397,6 +433,12 @@ bool TileMap::canClimbDown(const glm::ivec2& pos, const glm::ivec2& size, float*
 vector<Enemigo*> TileMap::getEnemys()
 {
 	return enemys;
+}
+
+vector<portal*> TileMap::getPortals()
+{
+
+	return portals;
 }
 
 

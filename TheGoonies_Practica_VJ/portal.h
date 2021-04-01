@@ -1,6 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 
+
+#include "Sprite.h"
 #include "TextureQuad.h"
 
 class ShaderProgram;
@@ -16,23 +18,28 @@ class portal
 
 public:
 
-	
-	void init(TypePortal type, glm::fvec2 position);
+	portal();
+	void init(TypePortal type, glm::fvec2 position, const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
 	void setSceneToTeleport(int scene);
+	void setposPlayer(glm::fvec2 posPlayer);
 	void teleport(glm::fvec2& posPlayer);
-	void prepareTile(const glm::vec2& minCoords, ShaderProgram& program, int i, int j, int tileSize);
+	bool playerContact();
 	
 	void render();
+
+	void update(float deltaTime);
 	
 private:
 
+	glm::fvec2 tileMapDispl, posPortal;
 	int sceneToTeleport;
-	glm::fvec2 posPlayerAfterTeleport;
-	glm::fvec2 posPortal;
+	glm::fvec2 posPlayerAfterTeleport, posPlayerBeforTeleport;
 	TypePortal tipoPortal;
 
-	TexturedQuad textQuad;
 	Texture texture;
+	Sprite* sprite;
 
+	bool collisioning;
+	bool puedeColisionar;
 };
 
