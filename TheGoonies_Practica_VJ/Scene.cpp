@@ -210,7 +210,7 @@ void Scene::calculateCorrectPantalla()
 		player->setTileMap(maps[pantalla]);
 
 	}
-	else if (player->getPosPlayer().x == (0 * maps[pantalla]->getTileSize()))
+	else if (player->getPosPlayer().x <= (0 * maps[pantalla]->getTileSize()))
 	{
 		if (pantalla > numPantalla::primer)
 		{
@@ -225,7 +225,7 @@ void Scene::calculateCorrectPantalla()
 		//asi a la par de ahorrar render doy sensacion de permanencia.
 		player->setTileMap(maps[pantalla]);
 
-	}else if (player->getPosPlayer().y == (0 * maps[pantalla]->getTileSize()))
+	}else if (player->getPosPlayer().y <= (0 * maps[pantalla]->getTileSize()))
 	{
 
 		if (pantalla > numPantalla::primer)
