@@ -109,7 +109,27 @@ void Game::keyPressed(int key)
 		Menu::instance().pressEnter();
 
 	}
+	else if (key == 49)
+	{
 
+		level.setToCurrentScene(0);
+	}
+	else if (key == 50)
+	{
+		level.setToCurrentScene(1);
+	}
+	else if (key == 51)
+	{
+		level.setToCurrentScene(2);
+	}
+	else if (key == 52)
+	{
+		level.setToCurrentScene(3);
+	}
+	else if (key == 53)
+	{
+		level.setToCurrentScene(4);
+	}
 	//al darle a la W se añade un amigo salvado
 	if (key == 87)
 	{

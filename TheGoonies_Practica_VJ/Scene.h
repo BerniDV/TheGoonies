@@ -38,6 +38,7 @@ public:
 
 	vector<TileMap*> getMaps();
 	int getCurrentPantalla();
+	void setCurrentPantalla(int pantalla);
 
 	void setNumScene(int numEscene);
 

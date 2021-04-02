@@ -43,7 +43,27 @@ void Level::setToCurrentScene(int numScene)
 {
 
 	//Contiene la escena que se renderiza y actualiza
-	currentScene = numScene;
+
+	vector<TileMap*> maps = scene[numScene]->getMaps();
+
+	for (int i = 0; i < 3; i++) {
+
+		vector<portal*> portalsOfPortal = maps[0]->getPortals();
+
+		for(auto p: portalsOfPortal)
+		{
+			if (p!=NULL)
+			{
+				currentScene = numScene;
+				scene[numScene]->setCurrentPantalla(0);
+				glm::fvec2 pos = p->getPosPortal();
+				pos.x = pos.x + 2 * 16.f;
+				pos.y = pos.y + 1 * 16.f;
+				player->setPosition(pos);
+			}
+		}
+
+	}
 }
 
 int Level::getCurrentScene()
@@ -85,7 +105,7 @@ void Level::update(float deltaTime)
 
 				if (Game::instance().getKey(13))
 				{
-					if (p->getType() == Previous)
+					if (p->getType() == Previous && currentScene != 0)
 					{
 
 						vector<TileMap*> maps = scene[currentScene - 1]->getMaps();
@@ -112,7 +132,7 @@ void Level::update(float deltaTime)
 
 						}
 					}
-					else
+					else if(p->getType() == Posterior)
 					{
 
 						vector<TileMap*> maps = scene[currentScene + 1]->getMaps();

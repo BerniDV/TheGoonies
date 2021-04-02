@@ -201,6 +201,12 @@ int Scene::getCurrentPantalla()
 	return pantalla;
 }
 
+void Scene::setCurrentPantalla(int pantalla)
+{
+
+	this->pantalla = pantalla;
+}
+
 void Scene::setNumScene(int numEscene)
 {
 
@@ -237,7 +243,7 @@ void Scene::calculateCorrectPantalla()
 		
 		
 
-	}else if (player->getPosPlayer().y <= (1 * maps[pantalla]->getTileSize()))
+	}else if (player->getPosPlayer().y <= (0 * maps[pantalla]->getTileSize()))
 	{
 
 		if (pantalla > numPantalla::primer)
@@ -265,7 +271,7 @@ void Scene::calculateCorrectPantalla()
 		}
 		//Game::instance().setbWin(true);
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(player->getPosPlayer().x, 3* maps[pantalla]->getTileSize()));
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 1* maps[pantalla]->getTileSize()));
 
 		
 		
