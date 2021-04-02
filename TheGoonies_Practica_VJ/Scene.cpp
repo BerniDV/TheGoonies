@@ -219,13 +219,19 @@ void Scene::calculateCorrectPantalla()
 	
 	if (player->getPosPlayer().x >= (34 * maps[pantalla]->getTileSize()))
 	{
+		float posy = player->getPosPlayer().y;
+		player->setPosition(glm::vec2(40 * maps[pantalla]->getTileSize(), player->getPosPlayer().y ));
+		
 		if (pantalla < maps.size() - 1)
 		{
+			
 			++pantalla;
+			
 		}
+		
 		//Game::instance().setbWin(true);
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(0, player->getPosPlayer().y));
+		player->setPosition(glm::vec2(1 * maps[pantalla]->getTileSize(), posy-5));
 
 		
 
@@ -238,7 +244,7 @@ void Scene::calculateCorrectPantalla()
 		}
 
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(34 * maps[pantalla]->getTileSize(), player->getPosPlayer().y));
+		player->setPosition(glm::vec2(33 * maps[pantalla]->getTileSize(), player->getPosPlayer().y - 5));
 
 		
 		
@@ -252,7 +258,7 @@ void Scene::calculateCorrectPantalla()
 		}
 
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(player->getPosPlayer().x, 24 * maps[pantalla]->getTileSize()));
+		player->setPosition(glm::vec2(player->getPosPlayer().x, 25 * maps[pantalla]->getTileSize()));
 
 		if (player->getBClimbing())
 		{
@@ -262,7 +268,7 @@ void Scene::calculateCorrectPantalla()
 		
 		
 		
-	}else if (player->getPosPlayer().y >= (25 * maps[pantalla]->getTileSize()))
+	}else if (player->getPosPlayer().y >= (26 * maps[pantalla]->getTileSize()))
 	{
 
 		if (pantalla < maps.size() - 1)

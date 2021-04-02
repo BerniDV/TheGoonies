@@ -8,6 +8,7 @@ class EnemigoComplejo :
 public:
 
 	EnemigoComplejo();
+	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override;
 
 	void update(int deltaTime) override;
 	string typeOf() override;

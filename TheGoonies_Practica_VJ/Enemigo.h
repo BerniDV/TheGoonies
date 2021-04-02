@@ -36,6 +36,8 @@ public:
 	void setCanRender(bool value);
 	bool getCanRender();
 
+	void setbCanRender(bool value);
+
 	void setHealth(float value);
 	void addHealth(float value);
 	float getHealth();

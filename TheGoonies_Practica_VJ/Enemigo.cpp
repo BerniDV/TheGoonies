@@ -149,6 +149,12 @@ bool Enemigo::getCanRender()
 	return bCanRender;
 }
 
+void Enemigo::setbCanRender(bool value)
+{
+
+	bCanRender = value;
+}
+
 void Enemigo::setHealth(float value)
 {
 

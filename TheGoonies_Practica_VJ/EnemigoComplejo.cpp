@@ -12,6 +12,41 @@ EnemigoComplejo::EnemigoComplejo()
 	targetVisto = false;
 }
 
+void EnemigoComplejo::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
+{
+	setCollisioning(false);
+	setPuedeCollisionar(true);
+	setMoveRight(false);
+	bJumping = false;
+	setHealth(100.f);
+	setEstado(ALIVE);
+	setbCanRender(true);
+
+	velocidad = .5f;
+
+	spritesheet.loadFromFile("images/esqueleto.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
+	sprite->setNumberAnimations(4);
+
+	sprite->setAnimationSpeed(STAND_RIGHT, 3);
+	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.f, 0.f));
+
+	sprite->setAnimationSpeed(STAND_LEFT, 3);
+	sprite->addKeyframe(STAND_LEFT, glm::vec2(0.f, 0.5f));
+
+	sprite->setAnimationSpeed(MOVE_LEFT, 3);
+	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.5f));
+	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.5f, 0.5f));
+
+	sprite->setAnimationSpeed(MOVE_RIGHT, 3);
+	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0., 0.f));
+	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.5, 0.f));
+
+	sprite->changeAnimation(0);
+	tileMapDispl = tileMapPos;
+	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+}
+
 void EnemigoComplejo::update(int deltaTime)
 {
 
@@ -20,10 +55,14 @@ void EnemigoComplejo::update(int deltaTime)
 	if (targetVisto)
 	{
 		velocidad = 7.f;
+		sprite->setAnimationSpeed(MOVE_LEFT, 8);
+		sprite->setAnimationSpeed(MOVE_LEFT, 8);
 	}
 	else
 	{
 		velocidad = 1.f;
+		sprite->setAnimationSpeed(MOVE_LEFT, 3);
+		sprite->setAnimationSpeed(MOVE_LEFT, 3);
 	}
 
 	if (posTarget.y == getPosPlayer().y)
