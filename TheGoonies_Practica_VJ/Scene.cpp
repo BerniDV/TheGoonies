@@ -237,7 +237,7 @@ void Scene::calculateCorrectPantalla()
 		
 		
 
-	}else if (player->getPosPlayer().y <= (2 * maps[pantalla]->getTileSize()))
+	}else if (player->getPosPlayer().y <= (1 * maps[pantalla]->getTileSize()))
 	{
 
 		if (pantalla > numPantalla::primer)
