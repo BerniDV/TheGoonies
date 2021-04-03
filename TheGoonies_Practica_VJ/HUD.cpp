@@ -19,6 +19,10 @@ void HUD::buildHUD()
 	distanceAmongWords = 60.f;
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
+	glm::vec2 position(2 * 16, 26  * 16);
+	llave.init(glm::ivec2(32, 16), texProgram, "images/llave.png");
+	llave.setPosition(position);
+	
 	TxtManager[0] = TextManager::CreateTextManager(texProgram, "HEALTH", glm::vec2((SCREEN_WIDTH - 850.f) * 0.5f, -500.f));
 	TxtManager[1] = TextManager::CreateTextManager(texProgram, "EXPERIENCE", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f, -500.f));
 	TxtManager[2] = TextManager::CreateTextManager(texProgram, "FRIENDS", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f, -500.f));
@@ -106,6 +110,9 @@ void HUD::render()
 	//dibujo los rectangulos que representan los amigos
 
 	renderFriends();
+
+	if(renderKey)
+	 llave.render();
 
 }
 
@@ -205,5 +212,13 @@ void HUD::update(float deltaTime)
 
 	updateHealth(healthAmount);
 	updateExperience(experienceAmount);
+
+	
+}
+
+void HUD::setRenderKey(bool value)
+{
+
+	renderKey = value;
 }
 

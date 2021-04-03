@@ -31,6 +31,7 @@ void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	timeHitting = 0;
 	delayToHitAgain = 0;
 
+	tieneLlave = false;
 	bCanHit = true;
 	bhitting = false;
 	bClimbing = false;
@@ -389,6 +390,7 @@ void Player::restart()
 {
 	health = 100.f;
 	experience = 0.f;
+	tieneLlave = false;
 }
 
 void Player::setTileMap(TileMap* tileMap)
@@ -492,4 +494,16 @@ void Player::punchIfPossible(Enemigo& enemy, float amount)
 		}
 		enemy.addHealth(-amount);
 	}
+}
+
+bool Player::getTieneLlave()
+{
+
+	return tieneLlave;
+}
+
+void Player::setTieneLlave(bool value)
+{
+
+	tieneLlave = value;
 }

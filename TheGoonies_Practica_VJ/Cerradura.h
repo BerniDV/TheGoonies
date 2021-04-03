@@ -1,19 +1,14 @@
 #pragma once
-#include "Cerradura.h"
-#include "Friend.h"
+#include "TileMap.h"
 
-class ShaderProgram;
 class TileMap;
-class Friend;
-class Cerradura;
 
-class Jaula
+class Cerradura
 {
-
 
 public:
 
-	Jaula();
+	Cerradura();
 
 	virtual void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
 	void render() const;
@@ -28,19 +23,15 @@ public:
 
 	void setPosition(const glm::vec2& pos);
 	void setTileMap(TileMap* tileMap);
-	glm::ivec2 getPosJaula();
+	glm::ivec2 getPosCerradura();
 
-	bool getJaulaCerrada();
-	void setJaulaCerrada(bool value);
+	bool getCerraduraCerrada();
+	void setCerraduraCerrada(bool value);
 
-	Cerradura* getCerradura();
-
-	Friend* getAmigo();
 
 private:
 	
-	Friend* amigo;
-	glm::ivec2 tileMapDispl, posJaula;
+	glm::ivec2 tileMapDispl, posCerradura;
 	int jumpAngle, startY;
 	Texture spritesheet;
 	Sprite* sprite;
@@ -51,13 +42,8 @@ private:
 
 	bool collisioning;
 	bool puedeColisionar;
-	bool jaulaCerrada;
+	bool cerraduraCerrada;
 
 	float framesBtwAnimations;
-
-	Cerradura* cerradura;
-
-	//glm::fvec2 posJaula;
-	
 };
 

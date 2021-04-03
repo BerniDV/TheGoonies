@@ -20,7 +20,7 @@ private:
 	glm::ivec2 posTarget;
 	bool MoveRight;
 	bool targetVisto;
-
+	int maxHuntTime;
 
 };
 

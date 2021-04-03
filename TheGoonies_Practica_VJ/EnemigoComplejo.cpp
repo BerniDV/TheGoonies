@@ -14,6 +14,9 @@ EnemigoComplejo::EnemigoComplejo()
 
 void EnemigoComplejo::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
+
+	maxHuntTime = 0;
+	
 	setCollisioning(false);
 	setPuedeCollisionar(true);
 	setMoveRight(false);
@@ -90,7 +93,7 @@ void EnemigoComplejo::update(int deltaTime)
 
 		posPlayer.x -= 1 * velocidad;
 
-		if (map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+		if (map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)) || map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
 		{
 			targetVisto = false;
 			MoveRight = true;
@@ -108,7 +111,7 @@ void EnemigoComplejo::update(int deltaTime)
 
 		posPlayer.x += 1 * velocidad;
 
-		if (map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+		if (map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)) || map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
 		{
 			targetVisto = false;
 			MoveRight = false;
@@ -169,6 +172,28 @@ void EnemigoComplejo::update(int deltaTime)
 
 		setPuedeCollisionar(false);
 	}
+
+	if (getHealth() <= 0.f && getEstado() == ALIVE)
+	{
+
+		setPuedeCollisionar(false);
+		setCanRender(false);
+		setEstado(DEAD);
+	}
+
+	if (maxHuntTime == 120)
+	{
+
+		targetVisto = false;
+		maxHuntTime = 0;
+
+	}
+
+	if (targetVisto)
+	{
+		++maxHuntTime;
+	}
+	
 
 }
 

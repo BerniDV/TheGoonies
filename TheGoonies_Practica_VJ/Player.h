@@ -42,9 +42,13 @@ public:
 	bool enemyContact(glm::fvec2 enemyPos);
 	void punchIfPossible(Enemigo& enemy, float amount);
 
+	bool getTieneLlave();
+	void setTieneLlave(bool value);
+
 
 protected:
 
+	bool tieneLlave;
 	bool bhitting;
 	bool bCanHit;
 	bool bJumping;

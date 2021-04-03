@@ -113,31 +113,81 @@ void Scene::update(int deltaTime)
 		}
 	}
 
+
+	vector<Item*> items = maps[pantalla]->getItems();
+
+	for (auto i : items)
+	{
+
+		if (i != NULL) {
+
+			if (i->playerContact(player->getPosPlayer()))
+			{
+				if (i->getTipo() == "llave" && !player->getTieneLlave())
+				{
+					player->setTieneLlave(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+				}
+				
+			}
+
+		}
+	}
+
+
 	
 	Jaula* jaula = maps[pantalla]->getJaula();
 	if (jaula != NULL)
 	{
 
-		Friend* amigo = jaula->getAmigo();
+		Friend* amigo = NULL;
+		amigo = jaula->getAmigo();
 
-		if (jaula->playerContact(player->getPosPlayer()))
+		if (amigo!=NULL)
 		{
-			jaula->setJaulaCerrada(false);
-		}
-		
-		if (amigo->playerContact(glm::vec2(player->getPosPlayer().x , player->getPosPlayer().y - (2 * 16))) && amigo->getPuedeColisionar())
-		{
+
+			Cerradura* cerradura = jaula->getCerradura();
+
+			if (cerradura->playerContact(player->getPosPlayer()) && player->getTieneLlave())
+			{
+
+				cerradura->setCerraduraCerrada(false);
+				player->setTieneLlave(false);
+			}
+
+
 			if (!jaula->getJaulaCerrada())
 			{
-				amigo->setVisible(false);
-				Game::instance().addFriendSafed();
-				amigo->setPuedeColisionar(false);
+				if (amigo->playerContact(glm::vec2(player->getPosPlayer().x, player->getPosPlayer().y - (2 * 16))) && amigo->getPuedeColisionar())
+				{
+					amigo->setVisible(false);
+					Game::instance().addFriendSafed();
+					amigo->setPuedeColisionar(false);
+				}
+
 			}
-			
+		}
+		
+	}
+
+	vector<Trampa*> trampas = maps[pantalla]->getTrampas();
+
+	for (auto t : trampas)
+	{
+
+		if (t != NULL) {
+
+			if (t->playerContact(player->getPosPlayer()))
+			{
+		
+				player->addHealth(-25.f);
+				t->setPuedeColisionar(false);
+
+			}
+
 		}
 	}
-	
-
 	
 
 }

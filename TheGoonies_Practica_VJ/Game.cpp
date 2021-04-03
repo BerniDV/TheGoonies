@@ -24,6 +24,14 @@ bool Game::update(int deltaTime)
 {
 
 	HUD::instance().update(deltaTime);
+
+	if (level.playerHaveKey())
+	{
+		HUD::instance().setRenderKey(true);
+	}else
+	{
+		HUD::instance().setRenderKey(false);
+	}
 	
 	//esta misma accion hay que hacerla solo cuando entramos en contacto con un amigo en escena
 	//asi no habrà que comprovarlo cada frame

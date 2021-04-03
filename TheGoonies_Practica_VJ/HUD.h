@@ -1,4 +1,5 @@
 #pragma once
+#include "Llave.h"
 #include "Quad.h"
 #include "TextManager.h"
 class ShaderProgram;
@@ -26,6 +27,8 @@ public:
 
 	void update(float deltaTime);
 
+	void setRenderKey(bool value);
+
 private:
 
 	TextManager* TxtManager[3];
@@ -44,6 +47,8 @@ private:
 
 	glm::fvec2 position;
 
+	Llave llave;
+	bool renderKey;
 	
 };
 

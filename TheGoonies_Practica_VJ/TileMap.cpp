@@ -75,6 +75,23 @@ void TileMap::render() const
 			e->render();
 	}
 
+	for (auto i : items)
+	{
+		if (i != NULL)
+		{
+
+			i->render();
+		}
+	}
+
+	for (auto t : trampa)
+	{
+		if (t != NULL)
+		{
+
+			t->render();
+		}
+	}
 }
 
 void TileMap::update(float deltaTime)
@@ -114,6 +131,24 @@ void TileMap::update(float deltaTime)
 	{
 		jaula->update(deltaTime);
 	}
+
+	for (auto i : items)
+	{
+		if (i != NULL)
+		{
+
+			i->update(deltaTime);
+		}
+	}
+
+	for (auto t : trampa)
+	{
+		if (t != NULL)
+		{
+
+			t->update(deltaTime);
+		}
+	}
 }
 
 void TileMap::free()
@@ -129,6 +164,16 @@ void TileMap::free()
 	while (!enemys.empty())
 	{
 		enemys.pop_back();
+	}
+
+	while (!items.empty())
+	{
+		items.pop_back();
+	}
+
+	while (!trampa.empty())
+	{
+		trampa.pop_back();
 	}
 }
 
@@ -254,8 +299,30 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 				portals[LastPortal]->init(Posterior, position, glm::ivec2(32, 16), program);
 				map[j * mapSize.x + i] = 0;
 				
+			}else if (tile == 60) // representa la l (Llave)
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize() );
+				items.push_back(new Llave);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init( glm::ivec2(32, 16), program, "images/llave.png" );
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+				
 			}
-			else
+			else if (tile == 55) //representa g y la gota
+			{
+
+				glm::vec2 position((i * getTileSize() - 3), (j - 0) * getTileSize());
+				trampa.push_back(new Trampa);
+				int LastTrampa = trampa.size() - 1;
+				
+				trampa[LastTrampa]->init(glm::ivec2(32, 16), program, "images/gota.png");
+				trampa[LastTrampa]->initPosition(position);
+				trampa[LastTrampa]->setTileMap(this);
+				map[j * mapSize.x + i] = 0;
+				
+			} else
 				if (tile != 0)
 				{
 					// Non-empty tile
@@ -444,6 +511,18 @@ vector<portal*> TileMap::getPortals()
 {
 
 	return portals;
+}
+
+vector<Item*> TileMap::getItems()
+{
+
+	return items;
+}
+
+vector<Trampa*> TileMap::getTrampas()
+{
+
+	return trampa;
 }
 
 

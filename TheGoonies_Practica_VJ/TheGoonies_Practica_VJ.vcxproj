@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="Cerradura.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="EnemigoBasico.h" />
@@ -153,8 +154,10 @@
     <ClInclude Include="Friend.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Jaula.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Llave.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Player.h" />
@@ -170,8 +173,10 @@
     <ClInclude Include="TextureQuad.h" />
     <ClInclude Include="TextWriter.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Trampa.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cerradura.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Enemigo.cpp" />
     <ClCompile Include="EnemigoBasico.cpp" />
@@ -179,8 +184,10 @@
     <ClCompile Include="Friend.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jaula.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Llave.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
@@ -197,6 +204,7 @@
     <ClCompile Include="TextureQuad.cpp" />
     <ClCompile Include="TextWriter.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Trampa.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

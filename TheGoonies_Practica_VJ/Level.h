@@ -19,6 +19,8 @@ public:
 	void setToCurrentScene(int numScene);
 	int getCurrentScene();
 
+	bool playerHaveKey();
+
 private:
 	//Deberà ser un vector con un mínimo de 3 escenas
 	Scene* scene[5];

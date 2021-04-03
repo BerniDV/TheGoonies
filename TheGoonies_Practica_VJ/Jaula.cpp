@@ -9,12 +9,14 @@ enum JaulaAnims
 Jaula::Jaula()
 {
 	amigo = new Friend;
+	cerradura = new Cerradura;
 }
 
 void Jaula::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
 	
 	amigo->init(glm::ivec2(32, 32), shaderProgram);
+	cerradura->init(glm::ivec2(32, 32), shaderProgram);
 	
 	framesBtwAnimations = 0;
 	visible = true;
@@ -43,12 +45,16 @@ void Jaula::render() const
 	amigo->render();
 
 	sprite->render();
+
+	cerradura->render();
 }
 
 void Jaula::update(float deltaTime)
 {
 	
 	amigo->update(deltaTime);
+
+	cerradura->update(deltaTime);
 
 	sprite->update(deltaTime);
 
@@ -62,6 +68,12 @@ void Jaula::update(float deltaTime)
 	{
 
 		sprite->changeAnimation(STAND_OPEN);
+	}
+
+	if (!cerradura->getCerraduraCerrada() && sprite->animation() == STAND_CLOSE)
+	{
+
+		jaulaCerrada = false;
 	}
 }
 
@@ -114,6 +126,7 @@ void Jaula::setPosition(const glm::vec2& pos)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posJaula.x), float(tileMapDispl.y + posJaula.y)));
 
 	amigo->setPosition(glm::vec2(glm::vec2(pos.x + 1 * 16, pos.y + (1 * 16))));
+	cerradura->setPosition(glm::vec2(glm::vec2(pos.x - 2 * 16, pos.y + (1 * 16))));
 }
 
 void Jaula::setTileMap(TileMap* tileMap)
@@ -121,6 +134,7 @@ void Jaula::setTileMap(TileMap* tileMap)
 
 	map = tileMap;
 	amigo->setTileMap(tileMap);
+	cerradura->setTileMap(tileMap);
 }
 
 glm::ivec2 Jaula::getPosJaula()
@@ -137,6 +151,12 @@ bool Jaula::getJaulaCerrada()
 void Jaula::setJaulaCerrada(bool value)
 {
 	jaulaCerrada = value;
+}
+
+Cerradura* Jaula::getCerradura()
+{
+
+	return cerradura;
 }
 
 Friend* Jaula::getAmigo()

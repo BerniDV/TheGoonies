@@ -71,6 +71,12 @@ int Level::getCurrentScene()
 	return currentScene;
 }
 
+bool Level::playerHaveKey()
+{
+
+	return player->getTieneLlave();
+}
+
 
 void Level::init()
 {
