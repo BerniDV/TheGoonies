@@ -87,6 +87,9 @@
     <ClInclude Include="portal.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Jaula.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Credits.cpp">
@@ -159,6 +162,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="portal.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Jaula.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

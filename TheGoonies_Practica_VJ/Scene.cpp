@@ -113,15 +113,27 @@ void Scene::update(int deltaTime)
 		}
 	}
 
-	Friend* amigo = maps[pantalla]->getAmigo();
-
-	if (amigo != NULL)
+	
+	Jaula* jaula = maps[pantalla]->getJaula();
+	if (jaula != NULL)
 	{
-		if (amigo->playerContact(player->getPosPlayer()) && amigo->getPuedeColisionar())
+
+		Friend* amigo = jaula->getAmigo();
+
+		if (jaula->playerContact(player->getPosPlayer()))
 		{
-			amigo->setVisible(false);
-			Game::instance().addFriendSafed();
-			amigo->setPuedeColisionar(false);
+			jaula->setJaulaCerrada(false);
+		}
+		
+		if (amigo->playerContact(glm::vec2(player->getPosPlayer().x , player->getPosPlayer().y - (2 * 16))) && amigo->getPuedeColisionar())
+		{
+			if (!jaula->getJaulaCerrada())
+			{
+				amigo->setVisible(false);
+				Game::instance().addFriendSafed();
+				amigo->setPuedeColisionar(false);
+			}
+			
 		}
 	}
 	

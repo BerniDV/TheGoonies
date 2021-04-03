@@ -7,11 +7,13 @@
 
 
 #include "Friend.h"
+#include "Jaula.h"
 #include "portal.h"
 #include "Texture.h"
 #include "ShaderProgram.h"
 class Enemigo;
 class Friend;
+class Jaula;
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
 // simple format (see level01.txt for an example). With this information
@@ -49,6 +51,7 @@ public:
 
 
 	Friend* getAmigo();
+	Jaula* getJaula();
 
 	void setPosPlayer(glm::ivec2 posPlayer);
 
@@ -68,7 +71,7 @@ private:
 	vector<Enemigo*> enemys;
 	vector<portal*> portals;
 
-	Friend* amigo;
+	Jaula* jaula;
 };
 
 

@@ -25,7 +25,7 @@ TileMap::TileMap(const string& levelFile, const glm::vec2& minCoords, ShaderProg
 	for (auto e : enemys)
 		e = NULL;
 
-	amigo = NULL;
+	jaula = NULL;
 
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
@@ -36,6 +36,11 @@ TileMap::~TileMap()
 {
 	if (map != NULL)
 		delete map;
+
+	if (jaula != NULL)
+	{
+		delete jaula;
+	}
 }
 
 
@@ -49,16 +54,9 @@ void TileMap::render() const
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
 
-	for (auto e : enemys)
+	if (jaula != NULL)
 	{
-
-		if (e != NULL)
-			e->render();
-	}
-
-	if (amigo != NULL)
-	{
-		amigo->render();
+		jaula->render();
 	}
 
 	for (auto p : portals)
@@ -68,6 +66,13 @@ void TileMap::render() const
 
 			p->render();
 		}
+	}
+
+	for (auto e : enemys)
+	{
+
+		if (e != NULL)
+			e->render();
 	}
 
 }
@@ -105,9 +110,9 @@ void TileMap::update(float deltaTime)
 		}
 	}
 
-	if (amigo != NULL)
+	if (jaula != NULL)
 	{
-		amigo->update(deltaTime);
+		jaula->update(deltaTime);
 	}
 }
 
@@ -221,10 +226,10 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 			else if (tile == 9)
 			{
 
-				amigo = new Friend;
-				amigo->init(glm::ivec2(32, 16), program);
-				amigo->setPosition(glm::vec2((i * getTileSize())-10, (j-1) * getTileSize()));
-				amigo->setTileMap(this);
+				jaula = new Jaula;
+				jaula->init(glm::ivec2(32, 16), program);
+				jaula->setPosition(glm::vec2(((i-2) * getTileSize())-10, (j-3) * getTileSize()));
+				jaula->setTileMap(this);
 				map[j * mapSize.x + i] = 0;
 
 			}else if (tile == 63) //representa la o
@@ -444,7 +449,16 @@ vector<portal*> TileMap::getPortals()
 
 Friend* TileMap::getAmigo()
 {
-	return amigo;
+	if (jaula != NULL)
+	{
+		return jaula->getAmigo();
+	}
+	return NULL;
+}
+
+Jaula* TileMap::getJaula()
+{
+	return jaula;
 }
 
 void TileMap::setPosPlayer(glm::ivec2 posPlayer)
