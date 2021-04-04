@@ -356,25 +356,28 @@ void Scene::calculateCorrectPantalla()
 		{
 			
 			++pantalla;
+			player->setTileMap(maps[pantalla]);
 			
 		}
 		
 		//Game::instance().setbWin(true);
 		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(1 * maps[pantalla]->getTileSize(), posy-5));
+		player->setPosition(glm::vec2(1 * maps[pantalla]->getTileSize(), posy));
 
 		
 
 	}
 	else if (player->getPosPlayer().x <= (0 * maps[pantalla]->getTileSize()))
 	{
+		
 		if (pantalla > numPantalla::primer)
 		{
 			--pantalla;
+			player->setTileMap(maps[pantalla]);
 		}
 
-		glm::ivec2 pos = player->getPosPlayer();
-		player->setPosition(glm::vec2(33 * maps[pantalla]->getTileSize(), player->getPosPlayer().y - 5));
+		
+		player->setPosition(glm::vec2(33 * maps[pantalla]->getTileSize(), player->getPosPlayer().y));
 
 		
 		
@@ -385,6 +388,7 @@ void Scene::calculateCorrectPantalla()
 		if (pantalla > numPantalla::primer)
 		{
 			--pantalla;
+			player->setTileMap(maps[pantalla]);
 		}
 
 		glm::ivec2 pos = player->getPosPlayer();
@@ -404,6 +408,7 @@ void Scene::calculateCorrectPantalla()
 		if (pantalla < maps.size() - 1)
 		{
 			++pantalla;
+			player->setTileMap(maps[pantalla]);
 		}
 		//Game::instance().setbWin(true);
 		glm::ivec2 pos = player->getPosPlayer();
