@@ -1,0 +1,49 @@
+Mapeado
+
+la a en el mapa es un enemigo basico
+la b en el mapa es un enemigo complejo
+los numeros de 1 a 8 son los distintos tipos de bloques de los que se compone el mapaç
+el 9 es un amigo en una jaula
+la o es un portal que viaja a una escena anterior
+la p es un portal que viaja a una escena posterior
+la l es una llave
+la g representa una trampa de gota
+la h representa el powerUp HyperShoes
+la c representa el chubasquero
+la u representa el powerUp libro azul
+la e representa el powerUp libro verde
+la y representa el powerUp libro amarillo
+
+
+
+ATAJOS
+
+Mientreas se juega se puede apretar:
+W mayuscula para rescatar un amig
+Q mayuscula para activar el godmode
+1, 2, 3, 4 y 5 para viajar al inicio de las respectivas escenas
+6 para conseguir HyperShoes
+7 para conseguir chubasquero
+8 para conseguir libro azul
+9 para conseguir libro verde
+0 para conseguir libro amarillo
+
+
+
+Gameplay
+
+Para mover al personae hacia izquierda o derecha se usan las flexas izquierda y derecha
+Para saltar o trepar hacia arriba se usa la flexa hacia arriba
+Para descender una liana se usa la flexa hacia abajo
+Para usar un portal se usa la tecla enter cuando el personaje està en contacto con el portal
+Para atacar se usa espacio
+
+
+
+PowerUps
+
+Los HyperShoes aumentan la velocidad dels jugador permanentemente
+El chubasquero permite que el jugador no reciva daño de las gotas una sola vez
+El libro azul permite que el jugador no reciva daño de las calaveras una sola vez
+El libro amarillo permite que el jugador no reciva daño de los esqueletos una sola vez
+El libro verde permite que el jugador elimine a las calaveras o esqueletos una sola vez

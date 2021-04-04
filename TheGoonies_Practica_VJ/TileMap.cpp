@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include "TileMap.h"
+
+#include "Chubasquero.h"
 #include "Enemigo.h"
 #include "EnemigoBasico.h"
 #include "EnemigoComplejo.h"
@@ -322,7 +324,60 @@ void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 				trampa[LastTrampa]->setTileMap(this);
 				map[j * mapSize.x + i] = 0;
 				
-			} else
+			} else if (tile == 56) //representa la h de HyperShoes
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize());
+				items.push_back(new HyperShoes);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init(glm::ivec2(32, 16), program, "images/HyperShoes.png");
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+				
+			}else if (tile == 51)//representa la c de chubasquero
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize());
+				items.push_back(new Chubasquero);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init(glm::ivec2(32, 16), program, "images/chubasquero.png");
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+				
+			}else if (tile == 69)//representa la u, un libro azul
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize());
+				items.push_back(new BlueBook);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init(glm::ivec2(32, 16), program, "images/bluebook.png");
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+
+			}
+			else if (tile == 73)//representa la y, un libro amarillo
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize());
+				items.push_back(new YellowBook);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init(glm::ivec2(32, 16), program, "images/yellowbook.png");
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+
+			}
+			else if (tile == 53)//representa la e, un libro verde
+			{
+
+				glm::vec2 position((i * getTileSize()) - 10, (j - 1) * getTileSize());
+				items.push_back(new GreenBook);
+				int LastItem = items.size() - 1;
+				items[LastItem]->init(glm::ivec2(32, 16), program, "images/greenbook.png");
+				items[LastItem]->setPosition(position);
+				map[j * mapSize.x + i] = 0;
+
+			}
+			else
 				if (tile != 0)
 				{
 					// Non-empty tile

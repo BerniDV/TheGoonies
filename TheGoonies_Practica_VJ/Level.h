@@ -20,6 +20,11 @@ public:
 	int getCurrentScene();
 
 	bool playerHaveKey();
+	bool playerHaveHyperShoes();
+	bool playerHaveChubasquero();
+	bool playerHaveBlueBook();
+	bool playerHaveYellowBook();
+	bool playerHaveGreenBook();
 
 private:
 	//Deberà ser un vector con un mínimo de 3 escenas

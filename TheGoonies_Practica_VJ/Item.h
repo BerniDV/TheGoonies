@@ -31,6 +31,7 @@ public:
 	void setpriteSheet(string Path);
 
 	virtual string getTipo() = 0;
+	virtual float getVelocidad();
 
 protected:
 	

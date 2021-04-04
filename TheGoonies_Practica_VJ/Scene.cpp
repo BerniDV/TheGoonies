@@ -105,7 +105,31 @@ void Scene::update(int deltaTime)
 
 			if (e->playerContact(player->getPosPlayer()))
 			{
-				player->addHealth(-25.f);
+				if (e->getTipo() == "basico")
+				{
+					if (player->getTieneBlueBook() || player->getTieneGreenBook()) {
+
+						if (!player->getTieneGreenBook())
+							player->setTieneBlueBook(false);
+					}
+					else {
+						player->addHealth(-25.f);
+					}
+					
+				}else if (e->getTipo() == "complejo")
+				{
+					
+					if (player->getTieneYellowBook() || player->getTieneGreenBook()) {
+
+						if (!player->getTieneGreenBook())
+							player->setTieneYellowBook(false);
+							
+					}
+					else {
+						player->addHealth(-15.f);
+					}
+				}
+				
 			}
 
 			player->punchIfPossible(*e, 100.f);
@@ -128,6 +152,45 @@ void Scene::update(int deltaTime)
 					player->setTieneLlave(true);
 					i->setVisible(false);
 					i->setPuedeColisionar(false);
+				}else if(i->getTipo() == "HyperShoes" && !player->getTieneHyperShoes())
+				{
+
+					player->setTieneHyperShoes(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+					
+				}
+				else if (i->getTipo() == "chubasquero" && !player->getTieneChubasquero())
+				{
+
+					player->setTieneChubasquero(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+
+				}
+				else if (i->getTipo() == "bluebook" && !player->getTieneBlueBook())
+				{
+
+					player->setTieneBlueBook(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+
+				}
+				else if (i->getTipo() == "greenbook" && !player->getTieneGreenBook())
+				{
+
+					player->setTieneGreenBook(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+
+				}
+				else if (i->getTipo() == "yellowbook" && !player->getTieneYellowBook())
+				{
+
+					player->setTieneYellowBook(true);
+					i->setVisible(false);
+					i->setPuedeColisionar(false);
+
 				}
 				
 			}
@@ -180,8 +243,13 @@ void Scene::update(int deltaTime)
 
 			if (t->playerContact(player->getPosPlayer()))
 			{
-		
-				player->addHealth(-25.f);
+
+				if (player->getTieneChubasquero())
+					player->setTieneChubasquero(false);
+				else {
+					player->addHealth(-25.f);
+					
+				}
 				t->setPuedeColisionar(false);
 
 			}
@@ -279,7 +347,7 @@ void Scene::calculateCorrectPantalla()
 {
 
 	
-	if (player->getPosPlayer().x >= (34 * maps[pantalla]->getTileSize()))
+	if (player->getPosPlayer().x >= (33 * maps[pantalla]->getTileSize()))
 	{
 		float posy = player->getPosPlayer().y;
 		player->setPosition(glm::vec2(40 * maps[pantalla]->getTileSize(), player->getPosPlayer().y ));

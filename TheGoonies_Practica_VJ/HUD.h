@@ -1,7 +1,12 @@
 #pragma once
+#include "BlueBook.h"
+#include "Chubasquero.h"
+#include "GreenBook.h"
+#include "HyperShoes.h"
 #include "Llave.h"
 #include "Quad.h"
 #include "TextManager.h"
+#include "YellowBook.h"
 class ShaderProgram;
 
 class HUD
@@ -28,6 +33,16 @@ public:
 	void update(float deltaTime);
 
 	void setRenderKey(bool value);
+	
+	void setRenderHyperShoes(bool value);
+	
+	void setRenderChubasquero(bool value);
+
+	void setRenderBlueBook(bool value);
+
+	void setRenderYellowBook(bool value);
+
+	void setRenderGreenBook(bool value);
 
 private:
 
@@ -49,6 +64,22 @@ private:
 
 	Llave llave;
 	bool renderKey;
+
+	HyperShoes hypershoes;
+	bool renderHyperShoes;
+
+	Chubasquero chubasquero;
+	bool renderChubasquero;
+
+	BlueBook bluebook;
+	bool renderBlueBook;
+
+	YellowBook yellowbook;
+	bool renderYellowBook;;
+
+	GreenBook greenbook;
+	bool renderGreenBook;;
+
 	
 };
 

@@ -30,7 +30,10 @@ void Player::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	experience = 0.f;
 	timeHitting = 0;
 	delayToHitAgain = 0;
+	velocidad = 2.f;
 
+	tieneChubasquero = false;
+	tieneHyperShoes = false;
 	tieneLlave = false;
 	bCanHit = true;
 	bhitting = false;
@@ -114,11 +117,11 @@ void Player::update(int deltaTime)
 			sprite->changeAnimation(MOVE_LEFT);
 
 		if (!bhitting)
-			posPlayer.x -= 2;
+			posPlayer.x -= velocidad;
 
 		if (map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
 		{
-			posPlayer.x += 2;
+			posPlayer.x += velocidad;
 
 			if (sprite->animation() != CLIMB)
 				sprite->changeAnimation(STAND_LEFT);
@@ -137,11 +140,11 @@ void Player::update(int deltaTime)
 			sprite->changeAnimation(MOVE_RIGHT);
 
 		if (!bhitting)
-			posPlayer.x += 2;
+			posPlayer.x += velocidad;
 
 		if (map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
 		{
-			posPlayer.x -= 2;
+			posPlayer.x -= velocidad;
 
 			if (sprite->animation() != CLIMB)
 				sprite->changeAnimation(STAND_RIGHT);
@@ -379,6 +382,11 @@ void Player::update(int deltaTime)
 
 		experience = 0.f;
 	}
+
+	if (tieneHyperShoes && velocidad != 3.f)
+	{
+		setVelocidad(3.f);
+	}
 }
 
 void Player::render()
@@ -390,7 +398,13 @@ void Player::restart()
 {
 	health = 100.f;
 	experience = 0.f;
+	setVelocidad(2.f);
 	tieneLlave = false;
+	tieneHyperShoes = false;
+	tieneChubasquero = false;
+	tieneBlueBook = false;
+	tieneYellowBook = false;
+	tieneGreenBook = false;
 }
 
 void Player::setTileMap(TileMap* tileMap)
@@ -476,6 +490,14 @@ bool Player::enemyContact(glm::fvec2 enemyPos)
 
 				return true;
 		}
+
+		if (tieneGreenBook)
+		{
+			float voulnerablePosition = 1. * map->getTileSize();
+			if (enemyPos.x < (posPlayer.x + voulnerablePosition) && enemyPos.x >= (posPlayer.x))
+
+				return true;
+		}
 	}
 	
 
@@ -484,6 +506,18 @@ bool Player::enemyContact(glm::fvec2 enemyPos)
 
 void Player::punchIfPossible(Enemigo& enemy, float amount)
 {
+	if (enemyContact(enemy.getPosPlayer()) && tieneGreenBook && enemy.getEstado() == ALIVE)
+	{
+		if ((enemy.getHealth() - amount) <= 0.f)
+		{
+			experience += 25.f;
+			HUD::instance().updateExperience(experience);
+			SoundPlayer::instance().play2DSong("punch", false);
+		}
+		enemy.addHealth(-amount);
+		tieneGreenBook = false;
+	}
+	
 	if (enemyContact(enemy.getPosPlayer()) && bhitting && enemy.getEstado() == ALIVE)
 	{
 		if ((enemy.getHealth() - amount) <= 0.f)
@@ -506,4 +540,69 @@ void Player::setTieneLlave(bool value)
 {
 
 	tieneLlave = value;
+}
+
+bool Player::getTieneHyperShoes()
+{
+
+	return tieneHyperShoes;
+}
+
+void Player::setTieneHyperShoes(bool value)
+{
+
+	tieneHyperShoes = value;
+}
+
+bool Player::getTieneChubasquero()
+{
+	return tieneChubasquero;
+}
+
+void Player::setTieneChubasquero(bool value)
+{
+	tieneChubasquero = value;
+}
+
+bool Player::getTieneBlueBook()
+{
+
+	return tieneBlueBook;
+}
+
+void Player::setTieneBlueBook(bool value)
+{
+	tieneBlueBook = value;
+}
+
+bool Player::getTieneGreenBook()
+{
+	return tieneGreenBook;
+}
+
+void Player::setTieneGreenBook(bool value)
+{
+
+	tieneGreenBook = value;
+}
+
+bool Player::getTieneYellowBook()
+{
+
+	return tieneYellowBook;
+}
+
+void Player::setTieneYellowBook(bool value)
+{
+
+	tieneYellowBook = value;
+}
+
+void Player::setVelocidad(float velocidad)
+{
+	
+	sprite->setAnimationSpeed(MOVE_LEFT, velocidad * 4.5);
+	sprite->setAnimationSpeed(MOVE_RIGHT, velocidad * 4.5);
+	
+	this->velocidad = velocidad;
 }

@@ -183,8 +183,7 @@ void EnemigoComplejo::update(int deltaTime)
 
 	if (maxHuntTime == 120)
 	{
-
-		targetVisto = false;
+	targetVisto = false;
 		maxHuntTime = 0;
 
 	}
@@ -206,4 +205,9 @@ void EnemigoComplejo::setPosTarget(glm::ivec2 posPlayer)
 {
 
 	posTarget = posPlayer;
+}
+
+string EnemigoComplejo::getTipo()
+{
+	return "complejo";
 }

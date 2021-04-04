@@ -42,6 +42,8 @@ public:
 	void addHealth(float value);
 	float getHealth();
 
+	virtual string getTipo()=0;
+	
 private:
 
 	bool MoveRight;

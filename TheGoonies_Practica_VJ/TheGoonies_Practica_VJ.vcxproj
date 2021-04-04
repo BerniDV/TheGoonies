@@ -146,14 +146,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="BlueBook.h" />
     <ClInclude Include="Cerradura.h" />
+    <ClInclude Include="Chubasquero.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="EnemigoBasico.h" />
     <ClInclude Include="EnemigoComplejo.h" />
     <ClInclude Include="Friend.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GreenBook.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="HyperShoes.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Jaula.h" />
     <ClInclude Include="Level.h" />
@@ -174,16 +178,21 @@
     <ClInclude Include="TextWriter.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Trampa.h" />
+    <ClInclude Include="YellowBook.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlueBook.cpp" />
     <ClCompile Include="Cerradura.cpp" />
+    <ClCompile Include="Chubasquero.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Enemigo.cpp" />
     <ClCompile Include="EnemigoBasico.cpp" />
     <ClCompile Include="EnemigoComplejo.cpp" />
     <ClCompile Include="Friend.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GreenBook.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="HyperShoes.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jaula.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -205,6 +214,7 @@
     <ClCompile Include="TextWriter.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Trampa.cpp" />
+    <ClCompile Include="YellowBook.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

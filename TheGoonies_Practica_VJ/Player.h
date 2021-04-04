@@ -45,9 +45,31 @@ public:
 	bool getTieneLlave();
 	void setTieneLlave(bool value);
 
+	bool getTieneHyperShoes();
+	void setTieneHyperShoes(bool value);
+
+	bool getTieneChubasquero();
+	void setTieneChubasquero(bool value);
+
+	bool getTieneBlueBook();
+	void setTieneBlueBook(bool value);
+
+	bool getTieneGreenBook();
+	void setTieneGreenBook(bool value);
+
+	bool getTieneYellowBook();
+	void setTieneYellowBook(bool value);
+
+	void setVelocidad(float velocdad);
+
 
 protected:
 
+	bool tieneBlueBook;
+	bool tieneGreenBook;
+	bool tieneYellowBook;
+	bool tieneChubasquero;
+	bool tieneHyperShoes;
 	bool tieneLlave;
 	bool bhitting;
 	bool bCanHit;

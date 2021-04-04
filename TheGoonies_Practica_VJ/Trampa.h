@@ -3,6 +3,8 @@
 #include "TileMap.h"
 
 
+class Player;
+
 class Trampa
 {
 

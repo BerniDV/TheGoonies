@@ -77,6 +77,32 @@ bool Level::playerHaveKey()
 	return player->getTieneLlave();
 }
 
+bool Level::playerHaveHyperShoes()
+{
+
+	return player->getTieneHyperShoes();
+}
+
+bool Level::playerHaveChubasquero()
+{
+	return player->getTieneChubasquero();
+}
+
+bool Level::playerHaveBlueBook()
+{
+	return player->getTieneBlueBook();
+}
+
+bool Level::playerHaveYellowBook()
+{
+	return player->getTieneYellowBook();
+}
+
+bool Level::playerHaveGreenBook()
+{
+	return player->getTieneGreenBook();
+}
+
 
 void Level::init()
 {
@@ -174,6 +200,33 @@ void Level::update(float deltaTime)
 			}
 
 		}
+	}
+
+	//Atajos que permiten al jugador ganar powerups de forma automatica
+	if (Game::instance().getKey(54))
+	{
+		player->setTieneHyperShoes(true);
+		Game::instance().keyReleased(54);
+	}
+	else if (Game::instance().getKey(55))
+	{
+		player->setTieneChubasquero(true);
+		Game::instance().keyReleased(55);
+	}
+	else if (Game::instance().getKey(56))
+	{
+		player->setTieneBlueBook(true);
+		Game::instance().keyReleased(56);
+	}
+	else if (Game::instance().getKey(57))
+	{
+		player->setTieneGreenBook(true);
+		Game::instance().keyReleased(57);
+	}
+	else if (Game::instance().getKey(58))
+	{
+		player->setTieneYellowBook(true);
+		Game::instance().keyReleased(58);
 	}
 }
 

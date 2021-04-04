@@ -12,5 +12,6 @@ public:
 
 	void setPosTarget(glm::ivec2) override;
 	string typeOf() override;
+	string getTipo() override;
 };
 

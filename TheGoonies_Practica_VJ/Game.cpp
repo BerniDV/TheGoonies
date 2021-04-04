@@ -32,6 +32,51 @@ bool Game::update(int deltaTime)
 	{
 		HUD::instance().setRenderKey(false);
 	}
+
+	if (level.playerHaveHyperShoes())
+	{
+		HUD::instance().setRenderHyperShoes(true);
+	}
+	else
+	{
+		HUD::instance().setRenderHyperShoes(false);
+	}
+
+	if (level.playerHaveChubasquero())
+	{
+		HUD::instance().setRenderChubasquero(true);
+	}
+	else
+	{
+		HUD::instance().setRenderChubasquero(false);
+	}
+
+	if (level.playerHaveBlueBook())
+	{
+		HUD::instance().setRenderBlueBook(true);
+	}
+	else
+	{
+		HUD::instance().setRenderBlueBook(false);
+	}
+
+	if (level.playerHaveYellowBook())
+	{
+		HUD::instance().setRenderYellowBook(true);
+	}
+	else
+	{
+		HUD::instance().setRenderYellowBook(false);
+	}
+
+	if (level.playerHaveGreenBook())
+	{
+		HUD::instance().setRenderGreenBook(true);
+	}
+	else
+	{
+		HUD::instance().setRenderGreenBook(false);
+	}
 	
 	//esta misma accion hay que hacerla solo cuando entramos en contacto con un amigo en escena
 	//asi no habrà que comprovarlo cada frame
@@ -138,6 +183,7 @@ void Game::keyPressed(int key)
 	{
 		level.setToCurrentScene(4);
 	}
+
 	//al darle a la W se añade un amigo salvado
 	if (key == 87)
 	{

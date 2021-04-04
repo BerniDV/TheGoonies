@@ -19,9 +19,32 @@ void HUD::buildHUD()
 	distanceAmongWords = 60.f;
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
+	
 	glm::vec2 position(2 * 16, 26  * 16);
 	llave.init(glm::ivec2(32, 16), texProgram, "images/llave.png");
 	llave.setPosition(position);
+
+	position = {4 * 16, 26 * 16};
+	hypershoes.init(glm::ivec2(32, 16), texProgram, "images/HyperShoes.png");
+	hypershoes.setPosition(position);
+
+	position = { 6 * 16, 26 * 16 };
+	chubasquero.init(glm::ivec2(32, 16), texProgram, "images/chubasquero.png");
+	chubasquero.setPosition(position);
+
+	position = { 8 * 16, 26 * 16 };
+	bluebook.init(glm::ivec2(32, 16), texProgram, "images/bluebook.png");
+	bluebook.setPosition(position);
+
+	position = { 10 * 16, 26 * 16 };
+	yellowbook.init(glm::ivec2(32, 16), texProgram, "images/yellowbook.png");
+	yellowbook.setPosition(position);
+
+	position = { 12 * 16, 26 * 16 };
+	greenbook.init(glm::ivec2(32, 16), texProgram, "images/greenbook.png");
+	greenbook.setPosition(position);
+
+	
 	
 	TxtManager[0] = TextManager::CreateTextManager(texProgram, "HEALTH", glm::vec2((SCREEN_WIDTH - 850.f) * 0.5f, -500.f));
 	TxtManager[1] = TextManager::CreateTextManager(texProgram, "EXPERIENCE", glm::vec2((SCREEN_WIDTH + 700.f) * 0.5f, -500.f));
@@ -114,6 +137,22 @@ void HUD::render()
 	if(renderKey)
 	 llave.render();
 
+	if (renderHyperShoes)
+		hypershoes.render();
+
+	if (renderChubasquero)
+	{
+		chubasquero.render();
+	}
+
+	if (renderBlueBook)
+		bluebook.render();
+
+	if (renderYellowBook)
+		yellowbook.render();
+
+	if (renderGreenBook)
+		greenbook.render();
 }
 
 void HUD::renderFriends()
@@ -220,5 +259,33 @@ void HUD::setRenderKey(bool value)
 {
 
 	renderKey = value;
+}
+
+void HUD::setRenderHyperShoes(bool value)
+{
+
+	renderHyperShoes = value;
+}
+
+void HUD::setRenderChubasquero(bool value)
+{
+
+	renderChubasquero = value;
+}
+
+void HUD::setRenderBlueBook(bool value)
+{
+	renderBlueBook = value;
+}
+
+void HUD::setRenderYellowBook(bool value)
+{
+
+	renderYellowBook = value;
+}
+
+void HUD::setRenderGreenBook(bool value)
+{
+	renderGreenBook = value;
 }
 

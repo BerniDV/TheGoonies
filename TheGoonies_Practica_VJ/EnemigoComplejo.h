@@ -15,6 +15,8 @@ public:
 
 	void setPosTarget(glm::ivec2 posPlayer);
 
+	string getTipo() override;
+
 private:
 
 	glm::ivec2 posTarget;

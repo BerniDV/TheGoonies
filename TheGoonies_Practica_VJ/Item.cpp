@@ -127,6 +127,11 @@ void Item::setpriteSheet(string Path)
 	spritesheet.loadFromFile(Path, TEXTURE_PIXEL_FORMAT_RGBA);
 }
 
+float Item::getVelocidad()
+{
+	return 0;
+}
+
 
 
 

@@ -145,3 +145,8 @@ string EnemigoBasico::typeOf()
 {
 	return "EnemigoBasico";
 }
+
+string EnemigoBasico::getTipo()
+{
+	return "basico";
+}
