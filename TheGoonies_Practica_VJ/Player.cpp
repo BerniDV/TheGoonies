@@ -197,6 +197,20 @@ void Player::update(int deltaTime)
 		bClimbing = false;
 		
 	}
+
+	if((sprite->animation() == MOVE_LEFT || sprite->animation() == STAND_LEFT) && !bCanClimb && !map->collisionMoveDown(glm::fvec2(posPlayer.x, posPlayer.y+1), glm::ivec2(32, 32), &posPlayer.y))
+	{
+
+		sprite->changeAnimation(JUMP_LEFT);
+		bClimbing = false;
+	}
+
+	if ((sprite->animation() == MOVE_RIGHT || sprite->animation() == STAND_RIGHT) && !bCanClimb && !map->collisionMoveDown(glm::fvec2(posPlayer.x, posPlayer.y + 1), glm::ivec2(32, 32), &posPlayer.y))
+	{
+
+		sprite->changeAnimation(JUMP_RIGHT);
+		bClimbing = false;
+	}
 	
 	float aux;
 	glm::fvec2 posPlayerForChangeAnimationClimbUp(posPlayer.x, posPlayer.y - (.5f * map->getTileSize()));
@@ -506,6 +520,22 @@ bool Player::enemyContact(glm::fvec2 enemyPos)
 
 void Player::punchIfPossible(Enemigo& enemy, float amount)
 {
+	
+	
+	if (enemyContact(enemy.getPosPlayer()) && bhitting && enemy.getEstado() == ALIVE)
+	{
+		if ((enemy.getHealth() - amount) <= 0.f)
+		{
+			experience += 25.f;
+			enemy.setEstado(DEAD);
+			enemy.setPuedeCollisionar(false);
+			enemy.setCanRender(false);
+			HUD::instance().updateExperience(experience);
+			SoundPlayer::instance().play2DSong("punch", false);
+		}
+		enemy.addHealth(-amount);
+	}
+
 	if (enemyContact(enemy.getPosPlayer()) && tieneGreenBook && enemy.getEstado() == ALIVE)
 	{
 		if ((enemy.getHealth() - amount) <= 0.f)
@@ -516,17 +546,6 @@ void Player::punchIfPossible(Enemigo& enemy, float amount)
 		}
 		enemy.addHealth(-amount);
 		tieneGreenBook = false;
-	}
-	
-	if (enemyContact(enemy.getPosPlayer()) && bhitting && enemy.getEstado() == ALIVE)
-	{
-		if ((enemy.getHealth() - amount) <= 0.f)
-		{
-			experience += 25.f;
-			HUD::instance().updateExperience(experience);
-			SoundPlayer::instance().play2DSong("punch", false);
-		}
-		enemy.addHealth(-amount);
 	}
 }
 

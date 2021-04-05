@@ -31,7 +31,9 @@ void Level::restart()
 
 		scene[i]->restart();
 	}
-	
+
+	currentScene = 0;
+
 }
 
 void Level::addToCurrentScene(int numScene)
