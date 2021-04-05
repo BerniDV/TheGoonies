@@ -30,13 +30,13 @@ void SoundPlayer::init()
 	Key->setDefaultVolume(.5f);
 
 	MenuTheme = soundEngine->addSoundSourceFromFile("sounds/MenuTheme.mp3");
-	MenuTheme->setDefaultVolume(.5f);
+	MenuTheme->setDefaultVolume(1.f);
 
 	SonidoMolon = soundEngine->addSoundSourceFromFile("sounds/SonidoMolon.mp3");
-	SonidoMolon->setDefaultVolume(.5f);
+	SonidoMolon->setDefaultVolume(1.f);
 
 	CavernTheme = soundEngine->addSoundSourceFromFile("sounds/CavernTheme.mp3");
-	CavernTheme->setDefaultVolume(.5f);
+	CavernTheme->setDefaultVolume(1.f);
 }
 
 void SoundPlayer::play2DSong(const char* path, bool loop)
