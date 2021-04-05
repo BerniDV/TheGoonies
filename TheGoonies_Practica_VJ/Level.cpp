@@ -218,12 +218,12 @@ void Level::update(float deltaTime)
 		player->setTieneBlueBook(true);
 		Game::instance().keyReleased(56);
 	}
-	else if (Game::instance().getKey(57))
+	else if (Game::instance().getKey(48))
 	{
 		player->setTieneGreenBook(true);
 		Game::instance().keyReleased(57);
 	}
-	else if (Game::instance().getKey(58))
+	else if (Game::instance().getKey(57))
 	{
 		player->setTieneYellowBook(true);
 		Game::instance().keyReleased(58);
