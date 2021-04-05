@@ -8,6 +8,8 @@
 
 void Game::init()
 {
+
+	SoundPlayer::instance().init();
 	friendsSafed = 0;
 	bNeedToRestart = false;
 	bPlay = true;
@@ -17,7 +19,7 @@ void Game::init()
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	level.init();
 	HUD::instance().buildHUD();
-	SoundPlayer::instance().init();
+	
 }
 
 bool Game::update(int deltaTime)
@@ -101,9 +103,11 @@ bool Game::update(int deltaTime)
 	{
 
 		SoundPlayer::instance().stopAllSongs();
-		Menu::instance().openMenuFunc();
 
 		bWin = false;
+
+		SoundPlayer::instance().stopAllSongs();
+		SoundPlayer::instance().play2DSong("Win", false);
 
 		if (bNeedToRestart)
 		{
@@ -115,8 +119,11 @@ bool Game::update(int deltaTime)
 
 	if (bLose)
 	{
-
-		Menu::instance().openMenuFunc();
+		if (!Menu::instance().getOpenMenu())
+		{
+			Menu::instance().openMenuFunc();
+		}
+		
 
 		if (bNeedToRestart)
 		{
@@ -155,6 +162,10 @@ void Game::keyPressed(int key)
 	{
 
 		Credits::instance().setOpenCredits(false);
+		if (!Menu::instance().getOpenMenu())
+		{
+			Menu::instance().openMenuFunc();
+		}
 	}
 	else if (Menu::instance().getOpenMenu() && key == 13)//13 es el ascii de enter
 	{

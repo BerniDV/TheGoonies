@@ -4,6 +4,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
+
+#include "Menu.h"
+#include "SoundPlayer.h"
+
 #define SCREEN_X 32
 #define SCREEN_Y 16
 
@@ -229,6 +233,60 @@ void Level::update(float deltaTime)
 	{
 		player->setTieneYellowBook(true);
 		Game::instance().keyReleased(58);
+	}
+
+	switch (currentScene)
+	{
+	case 0:
+		
+		if (SoundPlayer::instance().getCurrentSound() != "MainTheme" && (!Credits::instance().getOpenCredits() && !Menu::instance().getOpenMenu()) )
+		{
+			SoundPlayer::instance().stopAllSongs();
+			SoundPlayer::instance().play2DSong("MainTheme", true);
+		}
+		
+		break;
+
+	case 1:
+
+
+		if (SoundPlayer::instance().getCurrentSound() != "MainTheme")
+		{
+			SoundPlayer::instance().stopAllSongs();
+			SoundPlayer::instance().play2DSong("MainTheme", true);
+		}
+		break;
+
+	case 2:
+
+		if (SoundPlayer::instance().getCurrentSound() != "SonidoMolon")
+		{
+			SoundPlayer::instance().stopAllSongs();
+			SoundPlayer::instance().play2DSong("SonidoMolon", true);
+		}
+		break;
+
+	case 3:
+
+		if (SoundPlayer::instance().getCurrentSound() != "CavernTheme")
+		{
+			SoundPlayer::instance().stopAllSongs();
+			SoundPlayer::instance().play2DSong("CavernTheme", true);
+		}
+
+		break;
+
+	case 4:
+
+
+		if (SoundPlayer::instance().getCurrentSound() != "CavernTheme")
+		{
+			SoundPlayer::instance().stopAllSongs();
+			SoundPlayer::instance().play2DSong("CavernTheme", true);
+		}
+
+		break;
+		
 	}
 }
 

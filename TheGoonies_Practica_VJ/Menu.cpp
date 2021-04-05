@@ -44,6 +44,7 @@ void Menu::render()
 void Menu::openMenuFunc()
 {
 
+	SoundPlayer::instance().play2DSong("MenuTheme", true);
 	openMenu = true;
 	render();
 
@@ -116,7 +117,7 @@ void Menu::functionPLAY()
 	Game::instance().setBLose(false);
 	Game::instance().setbWin(false);
 	Game::instance().setFriendsSafed(0);
-	SoundPlayer::instance().play2DSong("MainTheme", true);
+	
 }
 
 void Menu::functionOPTIONS()

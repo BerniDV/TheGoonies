@@ -360,6 +360,7 @@ void Player::update(int deltaTime)
 		Game::instance().setNeedToRestart(true);
 		SoundPlayer::instance().stopAllSongs();
 		SoundPlayer::instance().play2DSong("die", false);
+		Sleep(1000);
 	}
 
 	if (timeHitting == 10)

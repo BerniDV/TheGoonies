@@ -18,10 +18,25 @@ void SoundPlayer::init()
 	punch->setDefaultVolume(0.8f);
 	
 	die = soundEngine->addSoundSourceFromFile("sounds/Die.mp3");
-	punch->setDefaultVolume(1.f);
+	die->setDefaultVolume(1.f);
 	
 	friendSaved = soundEngine->addSoundSourceFromFile("sounds/FriendSaved.mp3");
-	punch->setDefaultVolume(.5f);
+	friendSaved->setDefaultVolume(.5f);
+
+	Win = soundEngine->addSoundSourceFromFile("sounds/Win.mp3");
+	Win->setDefaultVolume(.5f);
+
+	Key = soundEngine->addSoundSourceFromFile("sounds/Key.mp3");
+	Key->setDefaultVolume(.5f);
+
+	MenuTheme = soundEngine->addSoundSourceFromFile("sounds/MenuTheme.mp3");
+	MenuTheme->setDefaultVolume(.5f);
+
+	SonidoMolon = soundEngine->addSoundSourceFromFile("sounds/SonidoMolon.mp3");
+	SonidoMolon->setDefaultVolume(.5f);
+
+	CavernTheme = soundEngine->addSoundSourceFromFile("sounds/CavernTheme.mp3");
+	CavernTheme->setDefaultVolume(.5f);
 }
 
 void SoundPlayer::play2DSong(const char* path, bool loop)
@@ -30,6 +45,7 @@ void SoundPlayer::play2DSong(const char* path, bool loop)
 	{
 		
 		soundEngine->play2D(MainTheme, loop);
+		currentSound = path;
 		
 	}else if (path == "punch")
 	{
@@ -43,10 +59,45 @@ void SoundPlayer::play2DSong(const char* path, bool loop)
 		
 		soundEngine->play2D(friendSaved);
 	}
+	else if (path == "Win")
+	{
+
+		soundEngine->play2D(Win);
+	}
+	else if (path == "Key")
+	{
+
+		soundEngine->play2D(Key);
+	}
+	else if (path == "MenuTheme")
+	{
+
+		soundEngine->play2D(MenuTheme);
+		currentSound = path;
+	}
+	else if (path == "SonidoMolon")
+	{
+
+		soundEngine->play2D(SonidoMolon);
+		currentSound = path;
+	}
+	else if (path == "CavernTheme")
+	{
+
+		soundEngine->play2D(CavernTheme);
+		currentSound = path;
+	}
+	
 	
 }
 
 void SoundPlayer::stopAllSongs()
 {
 	soundEngine->stopAllSounds();
+	
+}
+
+string SoundPlayer::getCurrentSound()
+{
+	return currentSound;
 }

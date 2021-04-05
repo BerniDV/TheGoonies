@@ -21,6 +21,9 @@ public:
 	void play2DSong(const char* path, bool loop);
 	void stopAllSongs();
 
+	string getCurrentSound();
+	void setCurrentSound(string sound);
+
 private:
 
 	ISoundEngine* soundEngine;
@@ -28,5 +31,13 @@ private:
 	ISoundSource* punch;
 	ISoundSource* die;
 	ISoundSource* friendSaved;
+	ISoundSource* Win;
+	ISoundSource* Key;
+	ISoundSource* MenuTheme;
+	ISoundSource* SonidoMolon;
+	ISoundSource* CavernTheme;
+
+	string currentSound;
+	
 };
 

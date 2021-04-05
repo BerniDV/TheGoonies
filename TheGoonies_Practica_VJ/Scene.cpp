@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "Game.h"
 #include "Menu.h"
-
+#include "SoundPlayer.h"
 
 
 #define SCREEN_X 32
@@ -152,6 +152,9 @@ void Scene::update(int deltaTime)
 					player->setTieneLlave(true);
 					i->setVisible(false);
 					i->setPuedeColisionar(false);
+					SoundPlayer::instance().play2DSong("Key", false);
+
+					
 				}else if(i->getTipo() == "HyperShoes" && !player->getTieneHyperShoes())
 				{
 
